@@ -5,6 +5,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 newdatabase::newdatabase(QDialog *parent)
     : QDialog(parent), ui(new Ui::newdatabase) {
@@ -12,12 +13,14 @@ newdatabase::newdatabase(QDialog *parent)
 
     connect(ui->pushButton, &QPushButton::clicked, this, [this]() {
         QString filename = QFileDialog::getSaveFileName(this, "Utwórz bazę danych", "", "SQLite DB (*.db)");
+
+
+        QString loginText = ui -> linePopup -> text();
+
         if (!filename.isEmpty()) {
             ui->linePopup->setText(filename);
         }
-    });
 
-    connect(ui->pushButton, &QPushButton::clicked, this, [this]() {
         QString login = ui -> linePopup -> text();
         QString password = ui -> linePopup_2 -> text();
         QString reppassword = ui -> linePopup_3 -> text();
@@ -31,8 +34,8 @@ newdatabase::newdatabase(QDialog *parent)
             return;
         }
 
-        if (Database::createNewDatabase(path) and (password == reppassword)) {
-            if (Database::insertLoginData(path, login, password)){
+        if (Database::createNewDatabase(path) && (password == reppassword)) {
+            if (Database::insertLoginData(path, loginText, password)){
             QMessageBox::information(this, "Sukces", "Utworzono bazę danych.");
             MainWindow *w = new MainWindow;
             w->show();

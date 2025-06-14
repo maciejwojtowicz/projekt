@@ -53,6 +53,7 @@ bool Database::insertLoginData(const QString &path, const QString &login, const 
     QSqlQuery query;
     query.prepare(sql);
     query.bindValue(":hashedPassword", hashedPassword);
+    qDebug() << login;
     query.bindValue(":login", login);
 
     if (!query.exec()) {

@@ -112,9 +112,9 @@ bool MyPopup::checkDatabase(const QString &dbPath, const QString &login, const Q
         while (query.next()) {
 
             readPassword = query.value("hashedPassword").toString();
-            qDebug()<<"odczytane login" << readPassword;
+            qDebug()<<"odczytane haslo" << readPassword;
             readLogin = query.value("login").toString();
-            qDebug()<<"odczytane haslo" << readLogin;
+            qDebug()<<"odczytane login" << readLogin;
 
             // Jeśli hasło i login pasują, zwracamy true
             if ((login == readLogin) && (hashedPassword == readPassword)){
