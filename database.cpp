@@ -20,8 +20,8 @@ bool Database::createNewDatabase(const QString &path) {
 
     QString sql = "CREATE TABLE IF NOT EXISTS passwords ("
                   "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                  "hashedPassword TEXT NOT NULL, "
-                  "login TEXT NOT NULL)";
+                  "hashedPassword TEXT, "
+                  "login TEXT)";
 
     QSqlQuery query;
     if (!query.exec(sql)) {

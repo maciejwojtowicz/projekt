@@ -30,6 +30,7 @@ MyPopup::MyPopup(QWidget *parent)
         QString readLogin;
         QString readPassword;
         QString projectDir = QCoreApplication::applicationDirPath();
+        qDebug() << projectDir;
         QString folderPath = projectDir;
 
         if (!login.isEmpty()) {
@@ -101,7 +102,6 @@ bool MyPopup::checkDatabase(const QString &dbPath, const QString &login, const Q
         query.bindValue(":login", login);
         qDebug()<<"login" << login;
 
-        // Logowanie zapytania SQL
 
 
         if (!query.exec()) {
@@ -109,16 +109,15 @@ bool MyPopup::checkDatabase(const QString &dbPath, const QString &login, const Q
             return false;
         }
 
-        // Sprawdzamy, czy znaleźliśmy pasujący rekord
         while (query.next()) {
 
             readPassword = query.value("hashedPassword").toString();
-            qDebug()<<"odczytane" << readPassword;
+            qDebug()<<"odczytane login" << readPassword;
             readLogin = query.value("login").toString();
-            qDebug()<<"odczytane" << readLogin;
+            qDebug()<<"odczytane haslo" << readLogin;
 
             // Jeśli hasło i login pasują, zwracamy true
-            if ((login == readLogin) && (password == readPassword)){
+            if ((login == readLogin) && (hashedPassword == readPassword)){
                 return true;
             }
 
